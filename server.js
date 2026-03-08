@@ -8,6 +8,14 @@ const port = Number(process.env.PORT || 3000);
 const model = process.env.QWEN_MODEL || 'qwen-plus';
 const apiKey = process.env.DASHSCOPE_API_KEY;
 
+const nodeMajor = Number(process.versions.node.split('.')[0]);
+
+if (nodeMajor < 18) {
+  console.error(`Node.js 版本过低：${process.versions.node}，请升级到 >= 18。`);
+  process.exit(1);
+}
+
+
 app.use(express.json());
 
 app.get('/api/health', (_req, res) => {
@@ -15,7 +23,10 @@ app.get('/api/health', (_req, res) => {
 });
 
 app.post('/api/chat', async (req, res) => {
-  const message = String(req.body?.message || '').trim();
+
+  const body = req.body && typeof req.body === 'object' ? req.body : {};
+  const message = String(body.message || '').trim();
+
 
   if (!message) {
     return res.status(400).json({ error: 'message 不能为空' });
@@ -51,19 +62,28 @@ app.post('/api/chat', async (req, res) => {
     });
 
     const data = await response.json();
-    const reply = data?.choices?.[0]?.message?.content?.trim();
+
+    const choices = Array.isArray(data && data.choices) ? data.choices : [];
+    const firstChoice = choices[0] || {};
+    const reply = String((firstChoice.message && firstChoice.message.content) || '').trim();
 
     if (!response.ok || !reply) {
-      const detail = data?.error?.message || '千问返回异常';
+      const detail = (data && data.error && data.error.message) || '千问返回异常';
+
       return res.status(502).json({ error: detail });
     }
 
     return res.json({ reply });
-  } catch (_error) {
+
+  } catch (error) {
+    console.error('调用千问失败:', error);
+
     return res.status(502).json({ error: '调用千问失败，请稍后重试' });
   }
 });
 
 app.listen(port, () => {
-  console.log(`Stella API listening on :${port}`);
+
+  console.log(`Stella API listening on :${port}, model=${model}, key=${apiKey ? 'set' : 'missing'}`);
+
 });

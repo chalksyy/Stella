@@ -31,7 +31,9 @@ async function askStella(message) {
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(data?.error || '请求失败');
+
+    throw new Error((data && data.error) || '请求失败');
+
   }
 
   return data.reply;
@@ -50,10 +52,15 @@ chatForm.addEventListener('submit', async (event) => {
 
 
   try {
+    chatInput.disabled = true;
     const reply = await askStella(text);
     appendChat('Stella', reply || '收到啦，今天也会一直陪你聊天 (｡•̀ᴗ-)✧');
-  } catch (_error) {
-    appendChat('Stella', '我这边信号有点波动，先抱抱你，等下继续聊呀 (；ω；)');
+  } catch (error) {
+    const detail = error && error.message ? `（${error.message}）` : '';
+    appendChat('Stella', `我这边信号有点波动，先抱抱你，等下继续聊呀 (；ω；)${detail}`);
+  } finally {
+    chatInput.disabled = false;
+    chatInput.focus();
   }
 
 });
