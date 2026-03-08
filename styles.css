@@ -1,0 +1,264 @@
+:root {
+  --sky-50: #f0faff;
+  --sky-100: #d8f2ff;
+  --sky-200: #b9e6ff;
+  --sky-400: #65bfff;
+  --sky-500: #43b3ff;
+  --ink: #17456a;
+  --card: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: var(--ink);
+  background: linear-gradient(160deg, var(--sky-50), var(--sky-100));
+  min-height: 100vh;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #cce9ff;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
+}
+
+.brand {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.brand p {
+  margin: 0.15rem 0 0;
+  font-size: 0.9rem;
+  color: #37719b;
+}
+
+.brand-star {
+  display: inline-grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 50%;
+  background: var(--sky-200);
+  color: #1f6f9c;
+  font-size: 1.2rem;
+}
+
+.follow-btn {
+  border: none;
+  background: var(--sky-500);
+  color: white;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.follow-btn:hover {
+  transform: translateY(-1px);
+  background: var(--sky-400);
+}
+
+.layout {
+  max-width: 1150px;
+  margin: 1.2rem auto;
+  padding: 0 1rem 1.2rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 14px;
+  border: 1px solid #d5ecff;
+  box-shadow: 0 10px 24px rgba(90, 166, 212, 0.14);
+}
+
+.player-panel {
+  position: relative;
+  padding: 1rem;
+}
+
+.live-badge {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 1;
+  background: #ff5f7a;
+  color: #fff;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  padding: 0.25rem 0.6rem;
+}
+
+.video-frame {
+  min-height: 410px;
+  border-radius: 12px;
+  background: radial-gradient(circle at 50% 30%, #daf2ff 0%, #9dd8ff 50%, #7cc7fb 100%);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.avatar-glow {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.08));
+  filter: blur(1px);
+  position: absolute;
+}
+
+.avatar {
+  position: relative;
+  z-index: 1;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  display: grid;
+  place-items: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #176799;
+  background: linear-gradient(135deg, #ffffff, #e8f6ff);
+}
+
+.stream-title {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 0;
+  right: 0;
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: #0d5179;
+}
+
+.stream-meta {
+  margin-top: 0.9rem;
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.stream-meta div {
+  background: #f4fbff;
+  border-radius: 10px;
+  padding: 0.7rem;
+}
+
+.stream-meta p {
+  margin: 0.35rem 0 0;
+  font-size: 0.94rem;
+}
+
+.side-panel {
+  display: grid;
+  gap: 1rem;
+}
+
+.schedule,
+.chat-box {
+  padding: 1rem;
+}
+
+h2 {
+  margin: 0 0 0.8rem;
+  font-size: 1.05rem;
+}
+
+.schedule ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.schedule li {
+  background: #f5fbff;
+  border-radius: 8px;
+  padding: 0.55rem 0.65rem;
+  font-size: 0.93rem;
+}
+
+.schedule li span {
+  font-weight: 600;
+  margin-right: 0.35rem;
+}
+
+.chat-list {
+  height: 260px;
+  overflow-y: auto;
+  border: 1px solid #daf0ff;
+  border-radius: 10px;
+  padding: 0.6rem;
+  background: #fafeff;
+}
+
+.chat-item {
+  margin-bottom: 0.55rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid #e9f5ff;
+  font-size: 0.9rem;
+}
+
+.chat-item strong {
+  color: #1e77ac;
+}
+
+.chat-form {
+  margin-top: 0.7rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.chat-form input {
+  flex: 1;
+  border: 1px solid #cde8fb;
+  border-radius: 9px;
+  padding: 0.55rem 0.65rem;
+}
+
+.chat-form button {
+  border: none;
+  border-radius: 9px;
+  padding: 0.55rem 0.9rem;
+  background: var(--sky-400);
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .video-frame {
+    min-height: 300px;
+  }
+
+  .stream-meta {
+    grid-template-columns: 1fr;
+  }
+}
