@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stella Live · 虚拟偶像直播平台</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-star">✦</span>
+        <div>
+          <h1>Stella Live</h1>
+          <p>虚拟偶像 Stella 天空直播站</p>
+        </div>
+      </div>
+      <button id="followBtn" class="follow-btn">+ 关注 Stella</button>
+    </header>
+
+    <main class="layout">
+      <section class="player-panel card">
+        <div class="live-badge">LIVE</div>
+        <div class="video-frame" id="videoFrame">
+          <div class="avatar-glow"></div>
+          <div class="avatar">Stella</div>
+          <p class="stream-title">《夜空电台》正在直播中</p>
+        </div>
+        <div class="stream-meta">
+          <div>
+            <strong>当前人气</strong>
+            <p id="viewerCount">1,248</p>
+          </div>
+          <div>
+            <strong>直播标签</strong>
+            <p>#唱见 #闲聊 #星空点歌</p>
+          </div>
+          <div>
+            <strong>状态</strong>
+            <p id="streamStatus">主播在线 · 氛围轻松</p>
+          </div>
+        </div>
+      </section>
+
+      <aside class="side-panel">
+        <section class="card schedule">
+          <h2>直播日程</h2>
+          <ul>
+            <li><span>周二 20:00</span> 星愿歌会</li>
+            <li><span>周四 21:00</span> 电台夜谈</li>
+            <li><span>周六 19:30</span> 粉丝互动局</li>
+          </ul>
+        </section>
+
+        <section class="card chat-box">
+          <h2>实时弹幕</h2>
+          <div id="chatList" class="chat-list" aria-live="polite"></div>
+          <form id="chatForm" class="chat-form">
+            <input id="chatInput" type="text" maxlength="60" placeholder="发送一条支持 Stella 的弹幕..." required />
+            <button type="submit">发送</button>
+          </form>
+        </section>
+      </aside>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
