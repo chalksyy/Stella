@@ -20,6 +20,7 @@ function appendChat(user, text) {
   chatList.scrollTop = chatList.scrollHeight;
 }
 
+
 async function askStella(message) {
   const response = await fetch('/api/chat', {
     method: 'POST',
@@ -30,7 +31,9 @@ async function askStella(message) {
   const data = await response.json();
 
   if (!response.ok) {
+
     throw new Error((data && data.error) || '请求失败');
+
   }
 
   return data.reply;
@@ -39,12 +42,14 @@ async function askStella(message) {
 seedMessages.forEach(([user, text]) => appendChat(user, text));
 
 chatForm.addEventListener('submit', async (event) => {
+
   event.preventDefault();
   const text = chatInput.value.trim();
   if (!text) return;
 
   appendChat('你', text);
   chatInput.value = '';
+
 
   try {
     chatInput.disabled = true;
@@ -57,6 +62,7 @@ chatForm.addEventListener('submit', async (event) => {
     chatInput.disabled = false;
     chatInput.focus();
   }
+
 });
 
 setInterval(() => {
@@ -70,3 +76,4 @@ followBtn.addEventListener('click', () => {
   followBtn.disabled = true;
   streamStatus.textContent = '你已关注主播 · 不错过每一场直播';
 });
+

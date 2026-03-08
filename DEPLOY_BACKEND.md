@@ -1,5 +1,6 @@
 # Stella AI 聊天后端部署（Node.js + Express）
 
+
 ## 0. 前提
 - 代码目录：`/var/www/stella`
 - Node.js 版本：`>= 18`（推荐 20）
@@ -11,6 +12,7 @@ node -v
 npm -v
 ```
 
+
 ## 1. 安装依赖
 ```bash
 cd /var/www/stella
@@ -20,6 +22,7 @@ npm install --production
 ## 2. 配置环境变量
 ```bash
 cd /var/www/stella
+
 cp -n .env.example .env
 nano .env
 ```
@@ -29,6 +32,7 @@ nano .env
 DASHSCOPE_API_KEY=你的真实Key
 QWEN_MODEL=qwen-plus
 PORT=3000
+
 ```
 
 ## 3. 启动后端（临时）
@@ -37,6 +41,7 @@ cd /var/www/stella
 npm start
 ```
 
+
 健康检查：
 ```bash
 curl http://127.0.0.1:3000/api/health
@@ -44,6 +49,7 @@ curl http://127.0.0.1:3000/api/health
 
 ## 4. 使用 systemd 常驻（推荐）
 创建文件：`/etc/systemd/system/stella-api.service`
+
 
 ```ini
 [Unit]
@@ -62,12 +68,15 @@ EnvironmentFile=/var/www/stella/.env
 WantedBy=multi-user.target
 ```
 
+
 执行：
+
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable --now stella-api
 sudo systemctl status stella-api --no-pager
 ```
+
 
 查看日志：
 ```bash
@@ -76,6 +85,7 @@ sudo journalctl -u stella-api -n 100 --no-pager
 
 ## 5. Nginx 反向代理 /api
 把下面片段加到站点 **443 的 server 块**：
+
 
 ```nginx
 location /api/ {
@@ -87,6 +97,7 @@ location /api/ {
     proxy_set_header X-Forwarded-Proto $scheme;
 }
 ```
+
 
 检查并重载：
 ```bash
@@ -133,3 +144,4 @@ Node 版本过低。升级到 Node 18+（推荐 20）。
 
 ### E) 前端一直显示“信号波动”
 说明 `/api/chat` 请求失败。请打开浏览器开发者工具 Network 看 `/api/chat` 状态码，同时看 `journalctl -u stella-api` 日志定位原因。
+
